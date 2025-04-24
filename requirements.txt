@@ -1,0 +1,33 @@
+# Core FastAPI Stack
+fastapi[all]
+uvicorn[standard]
+python-multipart
+# Database & SQL
+sqlalchemy
+databases[postgresql]
+asyncpg  # Async PostgreSQL driver
+psycopg2-binary # Sync driver (still needed for Alembic in some setups)
+alembic
+
+# HTML Parsing
+beautifulsoup4
+html5lib
+
+python-jose[cryptography] 
+passlib[bcrypt]
+cryptography
+
+
+# Environment & Utilities
+python-dotenv
+email-validator
+pydantic-settings
+
+aiosqlite
+aiosmtplib
+
+pytest
+pytest-asyncio
+httpx
+
+aiomqtt==2.3.2
