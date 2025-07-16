@@ -58,7 +58,7 @@ mosquitto -c mosquitto/config/mosquitto.conf
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-**That's it!** Visit `http://localhost:8000/docs` for your interactive dashboard.
+**That's it!** Visit `http://localhost:8000/docs` for the documentation.
 
 ## What You Get
 
@@ -67,7 +67,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 - **RESTful API** for device management and monitoring
 - **MQTT communication hub** compatible with any IoT hardware  
 - **Database logging** with full audit trails
-- **Real-time dashboard** via auto-generated Swagger UI
+- **Real-time interaction** via auto-generated Swagger UI
 - **Background simulation** for immediate testing without hardware
 
 ### Perfect Architecture
