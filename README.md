@@ -74,9 +74,9 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ```text
 [Your ESP32/Arduino] → [MQTT] → [Smart Farm API] → [Database + Dashboard]
-     ↑                                                      ↑
-Business Logic                                    Universal Infrastructure
-(Your custom code)                              (Our battle-tested platform)
+     ↑                                  ↑
+Business Logic               Universal Infrastructure
+(Your custom code)         (Our battle-tested platform)
 ```
 
 ### Ready for Hardware
