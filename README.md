@@ -1,6 +1,6 @@
 # Smart Farm API
 
-**The plug-and-play IoT infrastructure that agricultural automation companies charge $50,000+ to develop.**
+**Skip the IoT setup headache — connect, monitor, and scale your smart farm fast.**
 
 ## Why This Matters
 
