@@ -1,47 +1,25 @@
 # Smart Farm API
 
-**Skip the IoT setup headache — connect, monitor, and scale your smart farm fast.**
+Backend infrastructure for IoT-based agricultural monitoring. Handles device registration, MQTT communication, sensor data logging, and command execution.
 
-## Why This Matters
+## What it does
 
-Stop reinventing the wheel. Every smart farming project needs the same core infrastructure:
+- Registers and manages IoT devices (sensors, actuators)
+- Receives sensor data over MQTT and stores it
+- Sends commands to actuators with full audit trails
+- Provides a REST API for dashboards and integrations
 
-- Device registration and management
-- Real-time MQTT communication  
-- Data logging and historical tracking
-- Command execution and audit trails
-- Scalable monitoring dashboard
+```
+[ESP32/Arduino] → MQTT → [This API] → [PostgreSQL]
+                              ↓
+                    REST endpoints for your app
+```
 
-**We built it once, so you don't have to.** Deploy your microcontroller business logic, connect to our API, and focus on what makes your farm unique—not rebuilding database schemas and MQTT brokers.
+## Setup
 
-## Perfect For
-
-✅ **Agricultural Consultants** - Deploy client solutions in days, not months  
-✅ **Smart Greenhouse Operators** - Professional IoT management without the development cost  
-✅ **Equipment Manufacturers** - Add IoT capabilities to existing hardware  
-✅ **Farm Automation Startups** - Skip the infrastructure, build the innovation  
-✅ **Research Institutions** - Standardized platform for agricultural IoT experiments  
-
-## Value Proposition
-
-| Commercial IoT Platforms | Smart Farm API |
-|-------------------------|----------------|
-| $50-500/month per farm | **FREE** |
-| Vendor lock-in | **Open source** |
-| Limited customization | **Full control** |
-| 6-month implementation | **Deploy in days** |
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.8+
-- Eclipse Mosquitto MQTT Broker
-
-### Setup
+**Requirements:** Python 3.8+, Eclipse Mosquitto
 
 ```bash
-# Clone and setup
 git clone https://github.com/Incognitol07/smart-farm-api
 cd smart-farm-api
 python -m venv venv
@@ -51,56 +29,43 @@ pip install -r requirements.txt
 # Initialize database
 alembic upgrade head
 
-# Start MQTT broker (in separate terminal)
+# Start MQTT broker (separate terminal)
 mosquitto -c mosquitto/config/mosquitto.conf
 
-# Start API server
+# Start API
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-**That's it!** Visit `http://localhost:8000/docs` for the documentation.
+API docs at `http://localhost:8000/docs`
 
-## What You Get
+## MQTT Topics
 
-### Complete IoT Infrastructure
+Your hardware publishes/subscribes to:
 
-- **RESTful API** for device management and monitoring
-- **MQTT communication hub** compatible with any IoT hardware  
-- **Database logging** with full audit trails
-- **Real-time interaction** via auto-generated Swagger UI
-- **Background simulation** for immediate testing without hardware
+| Topic                 | Direction    | Purpose         |
+| --------------------- | ------------ | --------------- |
+| `farm/sensors/{id}`   | Device → API | Sensor readings |
+| `farm/actuators/{id}` | API → Device | Commands        |
 
-### Perfect Architecture
+The API handles storage, logging, and serving data to frontends. Your microcontroller handles the actual sensor reading and actuator control.
 
-```text
-  [Your ESP32/Arduino] → [MQTT] → [Smart Farm API] → [Database + Dashboard]
-          ↑                               ↑
-   Business Logic               Universal Infrastructure
- (Your custom code)           (Our battle-tested platform)
+## Project Structure
+
 ```
-
-### Ready for Hardware
-
-Your microcontrollers just need to:
-
-- Send sensor data to `farm/sensors/{id}`
-- Listen for commands on `farm/actuators/{id}`
-- Handle automation logic locally (edge computing)
-
-The API handles everything else: storage, monitoring, scaling, and management.
+app/
+├── main.py          # FastAPI entry point
+├── models/          # SQLAlchemy models
+├── routers/         # API endpoints
+├── services/        # Business logic + MQTT
+└── schemas/         # Pydantic models
+mosquitto/           # MQTT broker config
+alembic/             # Database migrations
+```
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+Open an issue first if you're planning something big. PRs welcome for bug fixes and improvements.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For issues and questions, please open an issue in the GitHub repository.
+MIT
